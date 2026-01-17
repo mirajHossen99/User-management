@@ -21,7 +21,7 @@ export const registrationUser = CatchAsyncError(async (req, res, next) => {
 
     
     const isEmailExist = await userModel.findOne({ email });
-    console.log("isExits: ", isEmailExist);
+    // console.log("isExits: ", isEmailExist);
     if (isEmailExist) {
       return next(new ErrorHandler("Email already exists", 400));
     }
@@ -36,7 +36,7 @@ export const registrationUser = CatchAsyncError(async (req, res, next) => {
     try {
       await sendMail({
         email: user.email,
-        subject: "Activate your ELearning account",
+        subject: "Activate your MS account",
         template: "activation-mail.ejs",
         data,
       });
@@ -60,7 +60,7 @@ const generateActivationToken = (user) => {
   const token = jwt.sign(
     { user, activationCode },
     process.env.JWT_SECRET,
-    { expiresIn: "5m" }
+    { expiresIn: "5h" }
   );
 
   return { token, activationCode };
@@ -170,7 +170,7 @@ export const getUserInfo = CatchAsyncError(async (req, res, next) => {
   try {
     const userId = req.user?._id;
     if (!userId) return next(new ErrorHandler("User not found", 401));
-    getUserId(userId.toString(), res);
+    getUserId(userId.toString(), res, next);
   } catch (error) {
     return next(new ErrorHandler(error.message, 400));
   }
