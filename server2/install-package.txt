@@ -1,0 +1,12 @@
+npm i bcryptjs cookie-parser cors dotenv express ioredis jsonwebtoken mongoose ts-node-dev @types/bcryptjs @types/cookie-parser @types/cors @types/express @types/jsonwebtoken @types/node typescript
+
+npx tsc --init
+npm install cloudinary
+npm i ejs
+npm i nodemailer
+npm i --save-dev @types/ejs
+npm i --save-dev @types/nodemailer
+
+
+------------ Generate random secret -------------
+openssl rand -base64 32
